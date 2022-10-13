@@ -1,0 +1,15 @@
+{
+    "name": "Red 0",
+    "color": "red",
+    "number": "0",
+    "type": "number",
+    "textures": {
+        "front": "textures.red_0_front",
+        "back": "textures.back"
+    },
+    "functions": {
+        "on_draw": null,
+        "on_play": "functions.red_0_play",
+        "on_discard": null
+    }
+}
