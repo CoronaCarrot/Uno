@@ -44,13 +44,13 @@ class uno(commands.Cog):
                 await interaction.response.defer()
                 self.deck = json.load(open(f"Modules/uno/decks/{select.values[0]}/manifest.json", encoding='utf-8'))
                 self.deckfile = select.values[0]
-                embed=discord.Embed(title="Uno", description="Click the join button to enter", colour=0x91cce)
-                embed.add_field(name="Players", value=str(str("- `👑` `" + "\n- `👤` `".join([user.display_name + "#" + user.discriminator + "`" for user in users]) if len(users) > 0 else ["No players"])), inline=False)
-                embed.add_field(name="Using Deck", value="`" + str(self.deck["emoji"] + "` `") + str(str(self.deck["name"]) + "`\n**Author**: `" + self.deck["author"] + "`"), inline=False)
+                embed=discord.Embed(title="Uno Game Lobby", colour=0x91cce)
+                embed.add_field(name="Players", value=str("`👑` `" if len(users) > 0 else "`❌` `") + "\n`👤` `".join([str(user.display_name + "#" + user.discriminator + "`") for user in users] if len(users) > 0 else ["No players`"]), inline=False)
+                embed.add_field(name="Using Deck", value=str("`" + str(self.deck["emoji"] + "` `") + str(str(self.deck["name"]) + "`\n**Author**: `" + self.deck["author"] + "`")) if self.deck != "Default" else "Default Deck", inline=False)
                 embed.set_footer(text="players: {}/8".format(len(users)))
                 await ui.edit(embed=embed)
 
-            @discord.ui.button(label="Join", style=discord.ButtonStyle.green)
+            @discord.ui.button(label="Join Game", style=discord.ButtonStyle.green)
             async def join(self, button: discord.ui.Button, interaction: discord.Interaction):
                 await interaction.response.defer(ephemeral=True)
                 if interaction.user not in users:
@@ -61,20 +61,19 @@ class uno(commands.Cog):
 
                     users.append(interaction.user)
                     # add to users list on embed
-                    embed=discord.Embed(title="Uno", description="Click the join button to enter", colour=0x91cce)
-                    embed.add_field(name="Players", value=str(str("- `👑` `" + "\n- `👤` `".join([user.display_name + "#" + user.discriminator + "`" for user in users]) if len(users) > 0 else ["No players"])), inline=False)
-                    embed.add_field(name="Using Deck", value="`" + str(self.deck["emoji"] + "` `") + str(str(self.deck["name"]) + "`\n**Author**: `" + self.deck["author"] + "`"), inline=False)
+                    embed=discord.Embed(title="Uno Game Lobby", colour=0x91cce)
+                    embed.add_field(name="Players", value=str("`👑` `" if len(users) > 0 else "`❌` `") + "\n`👤` `".join([str(user.display_name + "#" + user.discriminator + "`") for user in users] if len(users) > 0 else ["No players`"]), inline=False)
+                    embed.add_field(name="Using Deck", value=str("`" + str(self.deck["emoji"] + "` `") + str(str(self.deck["name"]) + "`\n**Author**: `" + self.deck["author"] + "`")) if self.deck != "Default" else "Default Deck", inline=False)
                     embed.set_footer(text="players: {}/8".format(len(users)))
                     await ui.edit(embed=embed)
                     await interaction.followup.send("You have joined the game.", ephemeral=True)
                 else:
                     # leave game
                     users.remove(interaction.user)
-                    print(len(users))
                     # remove from users list on embed
-                    embed=discord.Embed(title="Uno", description="Click the join button to enter", colour=0x91cce)
-                    embed.add_field(name="Players", value=str("- `👑` `" + "\n- `👤` `".join([user.display_name + "#" + user.discriminator + "`" for user in users] if len(users) > 0 else ["No players"])), inline=False)
-                    embed.add_field(name="Using Deck", value="`" + str(self.deck["emoji"] + "` `") + str(str(self.deck["name"]) + "`\n**Author**: `" + self.deck["author"] + "`"), inline=False)
+                    embed=discord.Embed(title="Uno Game Lobby", colour=0x91cce)
+                    embed.add_field(name="Players", value=str("`👑` `" if len(users) > 0 else "`❌` `") + "\n`👤` `".join([str(user.display_name + "#" + user.discriminator + "`") for user in users] if len(users) > 0 else ["No players`"]), inline=False)
+                    embed.add_field(name="Using Deck", value=str("`" + str(self.deck["emoji"] + "` `") + str(str(self.deck["name"]) + "`\n**Author**: `" + self.deck["author"] + "`")) if self.deck != "Default" else "Default Deck", inline=False)
 
                     embed.set_footer(text="players: {}/8".format(len(users)))
 
@@ -111,9 +110,9 @@ class uno(commands.Cog):
 
 
         # send setup message
-        embed=discord.Embed(title="Uno", description="Click the join button to enter", colour=0x91cce)
-        embed.add_field(name="Players", value=str("- `👑` `" + "\n- `👤` `".join([user.display_name + "#" + user.discriminator + "`" for user in users] if len(users) > 0 else ["No players"])), inline=False)
-        embed.add_field(name="Using Deck:", value="Default deck", inline=False)
+        embed=discord.Embed(title="Uno Game Lobby", colour=0x91cce)
+        embed.add_field(name="Players", value=str("`👑` `" if len(users) > 0 else "`❌` `") + "\n`👤` `".join([str(user.display_name + "#" + user.discriminator + "`") for user in users] if len(users) > 0 else ["No players`"]), inline=False)
+        embed.add_field(name="Using Deck", value="Default deck", inline=False)
 
         # set footer to player max
         embed.set_footer(text="players: {}/8".format(len(users)))

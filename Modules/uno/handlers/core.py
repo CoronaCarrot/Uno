@@ -29,7 +29,7 @@ class Game():
         for card in cardTypes:
             for i in range(counts[card]):
                 deck.append(card)
-        self.deck = deck.shuffle()
+        self.deck = shuffle(deck)
         self.completedeck = deck
         
 
@@ -42,6 +42,6 @@ class Game():
         self.playersToSkip = 0
 
     def drawcard(self):
-        player = players[playerTurn]
         if len(self.deck) == 0:
-            self.deck = self.completedeck.shuffle()
+            self.deck = shuffle(self.completedeck)
+        self.players[self.playerTurn].hand.append(self.deck.pop(0))
