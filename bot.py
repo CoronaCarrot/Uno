@@ -173,7 +173,6 @@ class GameBot(commands.AutoShardedBot):
         print("┃   " + colored("⁃ Bot Prefix: ", "yellow") + "Slash commands")
         print("┃   " + colored("⁃ Cogs Loaded: ", "yellow") + str(len(bot.cogs)))
         print("┃   " + colored("⁃ Bot Status: ", "yellow") + status["botstatus"]["type"] + " " + status["botstatus"]["status"])
-        print("┃   " + colored("⁃ Songs Loaded: ", "yellow") + str(len([song for song in pd.read_csv("data/songs.csv")["Song"]])))
         print("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛")
         
 
