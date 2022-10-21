@@ -24,13 +24,14 @@ class Game():
         #assemble the deck
         countfilepath = "Modules/uno/decks/" + deckName + "/assets/deck.json"
         counts = json.load(open(countfilepath))
-        cardTypes = counts.keys()
+        cardTypes = counts['cards'].keys()
         deck = []
         for card in cardTypes:
-            for i in range(counts[card]):
+            for i in range(counts['cards'][card]):
                 deck.append(card)
         self.deck = shuffle(deck)
         self.completedeck = deck
+        self.startCards = counts['hand_size']
         
 
     def win(self, playerNum = playerTurn):
@@ -40,8 +41,17 @@ class Game():
         self.playerTurn += (self.turnOrder) * (self.playersToSkip + 1)
         self.playerTurn %= self.numberOfPlayers
         self.playersToSkip = 0
+    
+    def removeCardFromDeck(self, cardID, amount = 1):
+        for i in range(amount):
+            if cardID in self.deck:
+                self.deck.remove(cardID)
 
-    def drawcard(self):
+    def playfieldDeckMerge(self):
+        for i in range(len(self.playfield) - 1):
+            self.deck.append(self.playfield.pop(0))
+
+    def drawCard(self):
         if len(self.deck) == 0:
-            self.deck = shuffle(self.completedeck)
+            self.playfieldDeckMerge()
         self.players[self.playerTurn].hand.append(self.deck.pop(0))

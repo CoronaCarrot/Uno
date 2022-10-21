@@ -32,6 +32,6 @@ class Red_0:
             self.game.win()
         elif len(self.game.player.hand) == 0 and self.card.type == "special":
             # draw a card
-            self.game.draw_card()
+            self.game.drawCard()
         
         return self.game
