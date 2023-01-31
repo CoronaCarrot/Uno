@@ -86,6 +86,12 @@ class uno(commands.Cog):
             @discord.ui.button(label="Start", style=discord.ButtonStyle.blurple)
             async def start(self, button: discord.ui.Button, interaction: discord.Interaction):
                 # if game leader (user at pos 0 in list)
+                try:
+                    test = users[0]
+                except IndexError:
+                    await interaction.response.send_message("*Cricket Noises*", ephemeral=True)
+                    return
+
                 if interaction.user == users[0]:
                     # if there is only one player
                     await interaction.response.defer(ephemeral=True)
